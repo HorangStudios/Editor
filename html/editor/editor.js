@@ -14,7 +14,7 @@ camera.position.set(5, 5, 5);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 // Create a renderer
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setSize(512, 512);
 renderer.setClearColor(0x1e90ff); // Set the background color to #add8e6
 renderer.shadowMap.enabled = true;
