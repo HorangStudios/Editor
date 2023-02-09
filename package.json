@@ -10,7 +10,7 @@
     "buildwin": "electron-builder --win"
   },
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "devDependencies": {
     "electron": "^4.2.12",
     "electron-builder": "^20.44.4"
@@ -18,7 +18,23 @@
   "build": {
     "appId": "com.horanghill.beta",
     "productName": "horanghill editor",
-    "target": "AppImage"
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "publisherName": "HorangStudios"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage",
+        "snap",
+        "rpm"
+      ],
+      "maintainer": "HorangStudios",
+      "category": "Game"
+    }
   },
   "dependencies": {
     "jquery": "^3.6.3"
