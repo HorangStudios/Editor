@@ -1,6 +1,9 @@
 //editor debug
 function debug(text) {
-    console.log(text)
+    var ul = document.getElementById("scriptlog");
+    var li = document.createElement("p");
+    li.innerText = text;
+    ul.appendChild(li);
 }
 
 //declare main window
@@ -14,7 +17,7 @@ camera.position.set(5, 5, 5);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 // Create a renderer
-var renderer = new THREE.WebGLRenderer( { antialias: true } );
+var renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(512, 512);
 renderer.setClearColor(0x1e90ff); // Set the background color to #add8e6
 renderer.shadowMap.enabled = true;
@@ -55,12 +58,12 @@ scene.add(hemiLight);
 var objects = [];
 
 //initiate transform controls
-var transformControls = new THREE.TransformControls( camera, renderer.domElement );
-transformControls.addEventListener( 'change', render );
-transformControls.addEventListener( 'dragging-changed', function ( event ) {
-	controls.enabled = ! event.value;
-} );
-scene.add( transformControls );
+var transformControls = new THREE.TransformControls(camera, renderer.domElement);
+transformControls.addEventListener('change', render);
+transformControls.addEventListener('dragging-changed', function (event) {
+    controls.enabled = !event.value;
+});
+scene.add(transformControls);
 
 // Add OrbitControls
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -131,8 +134,7 @@ function exportScene() {
     var exporter = new THREE.GLTFExporter();
     exporter.parse(scene, function (result) {
         var output = JSON.stringify(result, null, 2);
-        console.log(output);
-        editorDebug(JSON.stringify(output, null, 2))
+        debug(JSON.stringify(output));
 
         var link = document.createElement('a');
         link.href = URL.createObjectURL(new Blob([output], { type: 'text/plain' }));
@@ -148,20 +150,23 @@ function importScene() {
     var loader = new THREE.GLTFLoader();
     loader.load(URL.createObjectURL(file), function (gltf) {
         scene.add(gltf.scene);
+        // gltf.scene.children.forEach(function (object) {
+        //     scene.add(object);
+        // });
     }, undefined, function (error) {
         console.error(error);
     });
 }
 
 function runscript() {
-	let script = document.getElementById("scripteditor").value
-	try {
-		eval(script); 
-	} catch (e) {
-		if (e instanceof SyntaxError) {
-			debug(e.message);
-		}
-	}
+    let script = document.getElementById("scripteditorbox").value
+    try {
+        eval(script);
+    } catch (e) {
+        if (e instanceof SyntaxError) {
+            debug("[ERR] " + e.message);
+        }
+    }
 }
 
 // Render the scene
@@ -170,7 +175,25 @@ function render() {
     renderer.render(scene, camera);
     controls.update();
 
-    $(".childwindow").draggable({ handle: ".title-bar", containment: "#section"});
+    $(".childwindow").draggable({ handle: ".title-bar", containment: "#section" });
+}
+
+function openscriptwindow() {
+    var x = document.getElementById("scripteditor");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function openlogwindow() {
+    var x = document.getElementById("openlogwindow");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
 }
 render();
 
