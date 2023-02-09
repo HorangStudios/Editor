@@ -39,6 +39,10 @@
     .draggable {
         -webkit-app-region: drag;
     }
+	
+	.nodrag {
+        -webkit-app-region: no-drag;
+    }
 </style>
 
 <title>HorangHill Editor Beta3</title>
@@ -59,7 +63,7 @@
 <div class="window glass active" style="width: 100vw; height: 100vh; box-sizing: border-box;">
     <div class="title-bar draggable">
         <div class="title-bar-text">HorangHill Client</div>
-        <div class="title-bar-controls">
+        <div class="title-bar-controls nodrag">
             <button aria-label="Minimize" onclick="minimizeWin()"></button>
             <button aria-label="Maximize" onclick="maximizeWin()" id="maximize"></button>
             <button aria-label="Restore" onclick="restorewin()" id="restore" style="display: none;"></button>
