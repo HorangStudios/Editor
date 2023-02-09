@@ -1,6 +1,6 @@
 //editor debug
-function editorDebug(text) {
-    // document.getElementById('log').innerText = document.getElementById('log').innerText + text
+function debug(text) {
+    console.log(text)
 }
 
 //declare main window
@@ -151,6 +151,17 @@ function importScene() {
     }, undefined, function (error) {
         console.error(error);
     });
+}
+
+function runscript() {
+	let script = document.getElementById("scripteditor").value
+	try {
+		eval(script); 
+	} catch (e) {
+		if (e instanceof SyntaxError) {
+			debug(e.message);
+		}
+	}
 }
 
 // Render the scene

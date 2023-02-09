@@ -131,6 +131,7 @@
             </li>
             <li role="menuitem" tabindex="0" onclick="createcone()"><i class="fa-solid fa-square-caret-up"></i></li>
             <li role="menuitem" tabindex="0" onclick="createlight()"><i class="fa-solid fa-lightbulb"></i></li>
+			<li role="menuitem" tabindex="0" onclick="openscriptwindow()"><i class="fa-brands fa-js"></i></li>
 
             <li role="menuitem" class="itemdivider" tabindex="0">|</li>
 
@@ -150,6 +151,18 @@
                     <div class="title-bar-controls"><button aria-label="Close" disabled></button></div>
                 </div>
                 <div class="window-body" id="section1" style="width: fit-content;">
+                </div>
+            </div>
+			    <div class="window active glass above childwindow" style="width: 250px; height: 250px;">
+                <div class="title-bar">
+                    <div class="title-bar-text">Editor Scripts</div>
+                    <div class="title-bar-controls">
+						<button aria-label="" onclick="runscript()" id="maximize"><i class="fa-solid fa-play"></i></button>
+						<button aria-label="Close"></button>
+					</div>
+                </div>
+                <div class="window-body" contenteditable style="height: 215px;">
+					<textarea id="scripteditor" style="width: 100%; height: 100%;" placeholder="Hello! Horanger">debug("Hello, World!")</textarea>
                 </div>
             </div>
         </section>
