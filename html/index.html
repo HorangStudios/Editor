@@ -1,0 +1,188 @@
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        user-select: none;
+    }
+
+    * {
+        transition: all 0.1s ease !important;
+    }
+
+    /* #canvas {
+        height: 100% !important;
+        width: 100% !important;
+    } */
+
+    .above {
+        position: absolute !important;
+        z-index: 2;
+    }
+
+    .positionbox input {
+        margin: 6px;
+    }
+
+    section {
+        background-image: url("horanghillbg.png");
+        background-position: right bottom;
+        background-repeat: no-repeat;
+        background-size: 25%;
+    }
+
+    .itemdivider {
+        box-shadow: inset 1px 0 rgb(0 0 0 / 15%), inset -1px 0 #fff;
+    }
+</style>
+
+<title>HorangHill Editor Beta3</title>
+
+<script src="../js/close.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/jqueryui2.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/7.css">
+<script src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/exporters/GLTFExporter.js" defer></script>
+<script src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/loaders/GLTFLoader.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.119.1/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/libs/stats.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/TransformControls.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script src="editor/fontawesome.js"></script>
+
+<div class="window glass active" style="width: 100vw; height: 100vh; box-sizing: border-box;">
+    <div class="title-bar">
+        <div class="title-bar-text">HorangHill Client</div>
+        <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="minimizeWin()"></button>
+            <button aria-label="Maximize" onclick="maximizeWin()" id="maximize"></button>
+            <button aria-label="Restore" onclick="restorewin()" id="restore" style="display: none;"></button>
+            <button aria-label="Close" onclick="closeWin()"></button>
+        </div>
+    </div>
+    <div class="window-body" style="height: 94vh; box-sizing: border-box;">
+        <ul role="menubar" class="can-hover">
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
+                File
+                <ul role="menu">
+                    <li role="menuitem" onclick="document.getElementById('file-input').click();">
+                        <a href="#menubar">
+                            <input type="file" id="file-input" onchange="importScene()" style="display: none;" />
+                            Open
+                        </a>
+                    </li>
+                    <li role="menuitem" class="has-divider" onclick="exportScene()">
+                        <a href="#menubar">
+                            Save
+                        </a>
+                    </li>
+                    <li role="menuitem" onclick="window.close()"><a href="#menubar">Exit</a></li>
+                </ul>
+            </li>
+            <li role="menuitem" tabindex="0" aria-haspopup="true" aria-disabled="true">
+                Edit
+                <ul role="menu">
+                    <li role="menuitem"><a href="#menubar">Undo</a></li>
+                    <li role="menuitem"><a href="#menubar">Copy</a></li>
+                    <li role="menuitem"><a href="#menubar">Cut</a></li>
+                    <li role="menuitem" class="has-divider"><a href="#menubar">Paste</a></li>
+                    <li role="menuitem"><a href="#menubar">Delete</a></li>
+                    <li role="menuitem"><a href="#menubar">Find...</a></li>
+                    <li role="menuitem"><a href="#menubar">Replace...</a></li>
+                    <li role="menuitem"><a href="#menubar">Go to...</a></li>
+                </ul>
+            </li>
+            <li role="menuitem" tabindex="0" aria-haspopup="true" aria-disabled="true">
+                View
+                <ul role="menu">
+                    <li role="menuitem" tabindex="0" aria-haspopup="true">
+                        Zoom
+                        <ul role="menu">
+                            <li role="menuitem"><button>Zoom In</button></li>
+                            <li role="menuitem"><button>Zoom Out</button></li>
+                        </ul>
+                    </li>
+                    <li role="menuitem"><a href="#menubar">Status Bar</a></li>
+                </ul>
+            </li>
+            <li role="menuitem" tabindex="0" aria-haspopup="true" aria-disabled="true">
+                Help
+                <ul role="menu">
+                    <li role="menuitem"><a href="#menubar">View Help</a></li>
+                    <li role="menuitem"><a href="#menubar">About</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul role="menubar" style="background: none;">
+            <li role="menuitem" class="itemdivider" tabindex="0">|</li>
+
+            <li role="menuitem" tabindex="0" onclick="createcube()"><i class="fa-solid fa-cube"></i></li>
+            <li role="menuitem" tabindex="0" onclick="createsphere()"><i class="fa-solid fa-circle-half-stroke"></i>
+            </li>
+            <li role="menuitem" tabindex="0" onclick="createcone()"><i class="fa-solid fa-square-caret-up"></i></li>
+            <li role="menuitem" tabindex="0" onclick="createlight()"><i class="fa-solid fa-lightbulb"></i></li>
+
+            <li role="menuitem" class="itemdivider" tabindex="0">|</li>
+
+            <li role="menuitem" tabindex="0" onclick="transformControls.setMode('translate');"><i
+                    class="fa-solid fa-up-down-left-right"></i></li>
+            <li role="menuitem" tabindex="0" onclick="transformControls.setMode('rotate');"><i
+                    class="fa-solid fa-rotate"></i></li>
+            <li role="menuitem" tabindex="0" onclick="transformControls.setMode('scale');"><i
+                    class="fa-solid fa-maximize"></i></li>
+
+            <li role="menuitem" class="itemdivider" tabindex="0">|</li>
+        </ul>
+        <section style="height: calc(100% - 56px); width: 100%;" id="section">
+            <div class="window active glass above childwindow">
+                <div class="title-bar">
+                    <div class="title-bar-text">Project</div>
+                    <div class="title-bar-controls"><button aria-label="Close" disabled></button></div>
+                </div>
+                <div class="window-body" id="section1" style="width: fit-content;">
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<script type="x-shader/x-vertex" id="vertexShader">
+
+    varying vec3 vWorldPosition;
+
+    void main() {
+
+        vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+        vWorldPosition = worldPosition.xyz;
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+    }
+
+</script>
+<script type="x-shader/x-fragment" id="fragmentShader">
+
+    uniform vec3 topColor;
+    uniform vec3 bottomColor;
+    uniform float offset;
+    uniform float exponent;
+
+    varying vec3 vWorldPosition;
+
+    void main() {
+
+        float h = normalize( vWorldPosition + offset ).y;
+        gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), 1.0 );
+
+    }
+
+</script>
+<script src="editor/editor.js" defer></script>
+<script src="editor/newcube.js" defer></script>
+<script src="editor/newsphere.js" defer></script>
+<script src="editor/newcone.js" defer></script>
+<script src="editor/newlight.js" defer></script>
+<script src="editor/meshselect.js" defer></script>
