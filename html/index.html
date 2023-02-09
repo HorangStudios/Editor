@@ -35,6 +35,10 @@
     .itemdivider {
         box-shadow: inset 1px 0 rgb(0 0 0 / 15%), inset -1px 0 #fff;
     }
+
+    .draggable {
+        -webkit-app-region: drag;
+    }
 </style>
 
 <title>HorangHill Editor Beta3</title>
@@ -53,7 +57,7 @@
 <script src="editor/fontawesome.js"></script>
 
 <div class="window glass active" style="width: 100vw; height: 100vh; box-sizing: border-box;">
-    <div class="title-bar">
+    <div class="title-bar draggable">
         <div class="title-bar-text">HorangHill Client</div>
         <div class="title-bar-controls">
             <button aria-label="Minimize" onclick="minimizeWin()"></button>
