@@ -22,7 +22,7 @@ function onDocumentMouseDown(event) {
         // show the properties of the selected object (e.g. position, rotation, scale)
         console.log("Selected object: ", selectedObject);
 
-        // transformControls.attach(selectedObject);
+        transformControls.attach(selectedObject);
 
         //create window
         let customwindow = document.createElement('div');

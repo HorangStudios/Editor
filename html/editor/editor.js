@@ -29,26 +29,26 @@ hemiLight.groundColor.setHSL(0.095, 1, 0.75);
 hemiLight.position.set(0, 50, 0);
 scene.add(hemiLight);
 
-const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-dirLight.color.setHSL(0.1, 1, 0.95);
-dirLight.position.set(- 1, 1.75, 1);
-dirLight.position.multiplyScalar(30);
-scene.add(dirLight);
+// const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+// dirLight.color.setHSL(0.1, 1, 0.95);
+// dirLight.position.set(- 1, 1.75, 1);
+// dirLight.position.multiplyScalar(30);
+// scene.add(dirLight);
 
-dirLight.castShadow = true;
+// dirLight.castShadow = true;
 
-dirLight.shadow.mapSize.width = 2048;
-dirLight.shadow.mapSize.height = 2048;
+// dirLight.shadow.mapSize.width = 2048;
+// dirLight.shadow.mapSize.height = 2048;
 
-const d = 50;
+// const d = 50;
 
-dirLight.shadow.camera.left = - d;
-dirLight.shadow.camera.right = d;
-dirLight.shadow.camera.top = d;
-dirLight.shadow.camera.bottom = - d;
+// dirLight.shadow.camera.left = - d;
+// dirLight.shadow.camera.right = d;
+// dirLight.shadow.camera.top = d;
+// dirLight.shadow.camera.bottom = - d;
 
-dirLight.shadow.camera.far = 3500;
-dirLight.shadow.bias = - 0.0001;
+// dirLight.shadow.camera.far = 3500;
+// dirLight.shadow.bias = - 0.0001;
 
 
 //declare objects
@@ -57,6 +57,9 @@ var objects = [];
 //initiate transform controls
 var transformControls = new THREE.TransformControls( camera, renderer.domElement );
 transformControls.addEventListener( 'change', render );
+transformControls.addEventListener( 'dragging-changed', function ( event ) {
+	controls.enabled = ! event.value;
+} );
 scene.add( transformControls );
 
 // Add OrbitControls
@@ -161,4 +164,4 @@ function render() {
 render();
 
 //Spawn baseplate
-spawnCube(0, 0, 0, 64, 1, 64, 0x00ff00)
+spawnCube(0, 0, 0, 16, 1, 16, 0x00ff00)
