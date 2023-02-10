@@ -19,11 +19,10 @@ function createWindow() {
   win.loadFile('./html/index.html')
 
   var splash = new BrowserWindow({
-    width: 522,
-    height: 305,
+    width: 528,
+    height: 322,
     transparent: true,
-    frame: false,
-    alwaysOnTop: true
+    frame: false
   });
 
   splash.loadFile('./html/splash.html');

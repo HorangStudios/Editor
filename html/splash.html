@@ -1,30 +1,20 @@
 <link rel="stylesheet" href="https://unpkg.com/7.css">
 <style>
-    center {
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        height: 100vh;
-        place-items: center;
-    }
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
         overflow: hidden;
-    }
-    #loader {
-        background-color: white;
-        border: gray solid 1px;
-        padding: 50px;
+        -webkit-app-region: drag;
     }
 </style>
-<center>
-    <div id="loader">
+<div class="window glass active" style="width: fit-content;">
+    <div class="title-bar"></div>
+    <div class="window-body has-space" style="padding: 45px; text-align: center;">
         <img src="HorangHill.png" style="width: 125px;">
         <br><br><br>
         <p>Starting Editor...</p>
         <br>
         <div role="progressbar" class="marquee" style="width: 420px;"></div>
     </div>
-</center>
+</div>

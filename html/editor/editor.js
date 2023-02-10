@@ -19,7 +19,7 @@ camera.lookAt(new THREE.Vector3(0, 0, 0));
 // Create a renderer
 var renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(512, 512);
-renderer.setClearColor(0x1e90ff); // Set the background color to #add8e6
+renderer.setClearColor(0xadd8e6); // Set the background color to #add8e6
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.domElement.id = 'canvas';
@@ -53,9 +53,20 @@ scene.add(hemiLight);
 // dirLight.shadow.camera.far = 3500;
 // dirLight.shadow.bias = - 0.0001;
 
-
 //declare objects
 var objects = [];
+
+//testing skybox
+const loader = new THREE.CubeTextureLoader();
+const texture = loader.load([
+    '../resources/posx.jpg',
+    '../resources/negx.jpg',
+    '../resources/posy.jpg',
+    '../resources/negy.jpg',
+    '../resources/posz.jpg',
+    '../resources/negz.jpg',
+]);
+scene.background = texture;
 
 //initiate transform controls
 var transformControls = new THREE.TransformControls(camera, renderer.domElement);
@@ -85,6 +96,7 @@ function spawnCube(x, y, z, sizeX, sizeY, sizeZ, color) {
     // Add the cube to the scene
     scene.add(cube);
     objects.push(cube);
+    loadsceneexplorer()
 }
 
 function addSphere(sphereradius, spherewidth, sphereheight, sizeX, sizeY, sizeZ, color) {
@@ -100,6 +112,7 @@ function addSphere(sphereradius, spherewidth, sphereheight, sizeX, sizeY, sizeZ,
     // Add the sphere to the scene
     scene.add(sphere);
     objects.push(sphere);
+    loadsceneexplorer()
 }
 
 function addCone(x, y, z, sizeX, sizeY, sizeZ, color) {
@@ -116,6 +129,7 @@ function addCone(x, y, z, sizeX, sizeY, sizeZ, color) {
     scene.add(cone);
     // Add the cone to the list of objects
     objects.push(cone);
+    loadsceneexplorer()
 }
 
 function addLight(x, y, z, intensity, distance, color) {
@@ -127,6 +141,7 @@ function addLight(x, y, z, intensity, distance, color) {
     // Add the light to the scene
     scene.add(light);
     objects.push(light);
+    loadsceneexplorer()
 }
 
 // Function to export the scene to a GLTF file

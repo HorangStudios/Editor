@@ -67,6 +67,7 @@ function viewobject(selectedObject) {
         scene.remove(selectedObject)
         customwindow.remove()
         transformControls.detach();
+        loadsceneexplorer()
     }
 
     //set mesh description

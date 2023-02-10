@@ -3,7 +3,6 @@ var objectList = document.getElementById("scenelist");
 function loadsceneexplorer() {
     objectList.innerHTML = "";
     scene.children.forEach(function (object) {
-        if (object.type == "Mesh") {
             var listItem = document.createElement("li");
             listItem.role = "option";
             listItem.innerHTML = object.type;
@@ -11,7 +10,6 @@ function loadsceneexplorer() {
                 viewobject(object);
             }
             objectList.appendChild(listItem);
-        }
     });
 }
 
