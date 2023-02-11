@@ -1,4 +1,3 @@
-
 <style>
     body {
         margin: 0;
@@ -40,22 +39,27 @@
     .nodrag {
         -webkit-app-region: no-drag;
     }
+
+    .status-bar-field {
+        width: 25%;
+    }
 </style>
 
-<title>HorangHill Editor Beta3</title>
+<title>HorangHill Editor Beta 3</title>
 
-<script src="../js/close.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/7.css">
+<script type="text/javascript" src="../js/close.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../js/jqueryui2.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/7.css">
-<script src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/exporters/GLTFExporter.js" defer></script>
-<script src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/loaders/GLTFLoader.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.119.1/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/OrbitControls.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/libs/stats.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/TransformControls.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
-<script src="editor/fontawesome.js"></script>
+<script type="text/javascript" src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/exporters/GLTFExporter.js" defer></script>
+<script type="text/javascript" src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/loaders/GLTFLoader.js" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.119.1/build/three.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/OrbitControls.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/libs/stats.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/TransformControls.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script type="text/javascript" src="editor/resourcemonitor.js"></script>
+<script type="text/javascript" src="editor/fontawesome.js"></script>
 
 <div class="window glass active" style="width: 100vw; height: 100vh; box-sizing: border-box;">
     <div class="title-bar draggable">
@@ -67,7 +71,7 @@
             <button aria-label="Close" onclick="closeWin()"></button>
         </div>
     </div>
-    <div class="window-body" style="height: calc(100vh - 35px); box-sizing: border-box;">
+    <div class="window-body" style="height: calc(100vh - 35px - 21px); box-sizing: border-box;">
         <ul role="menubar" class="can-hover">
             <li role="menuitem" tabindex="0" aria-haspopup="true">
                 File
@@ -161,8 +165,8 @@
                 <div class="window-body" id="section1" style="width: fit-content;">
                 </div>
             </div>
-            <div class="window active glass above childwindow" style="width: 250px; height: 250px; display: none;"
-                id="scripteditor">
+            <div class="window active glass above childwindow"
+                style="width: fit-content; height: fit-content; display: none;" id="scripteditor">
                 <div class="title-bar">
                     <div class="title-bar-text">Editor Scripts</div>
                     <div class="title-bar-controls">
@@ -171,8 +175,8 @@
                         <button aria-label="Close" onclick="openscriptwindow()"></button>
                     </div>
                 </div>
-                <div class="window-body" style="height: 215px;">
-                    <textarea id="scripteditorbox" style="width: 100%; height: 100%;"
+                <div class="window-body" style="height: fit-content; width: fit-content;">
+                    <textarea id="scripteditorbox" style="height: 250px; width: 250px;"
                         placeholder="Hello, Horanger!">debug("Hello, Horanger!")</textarea>
                 </div>
             </div>
@@ -203,6 +207,12 @@
                 </div>
             </div>
         </section>
+    </div>
+    <div class="status-bar">
+        <p class="status-bar-field">HorangHill Editor Beta 3</p>
+        <p class="status-bar-field" id="cursormeter"></p>
+        <p class="status-bar-field" id="rammeter"></p>
+        <p class="status-bar-field" id="cpumeter"></p>
     </div>
 </div>
 
@@ -238,10 +248,10 @@
     }
 
 </script>
-<script src="editor/editor.js" defer></script>
-<script src="editor/newcube.js" defer></script>
-<script src="editor/newsphere.js" defer></script>
-<script src="editor/newcone.js" defer></script>
-<script src="editor/newlight.js" defer></script>
-<script src="editor/meshselect.js" defer></script>
-<script src="editor/sceneexplorer.js" defer></script>
+<script type="text/javascript" src="editor/editor.js" defer></script>
+<script type="text/javascript" src="editor/newcube.js" defer></script>
+<script type="text/javascript" src="editor/newsphere.js" defer></script>
+<script type="text/javascript" src="editor/newcone.js" defer></script>
+<script type="text/javascript" src="editor/newlight.js" defer></script>
+<script type="text/javascript" src="editor/meshselect.js" defer></script>
+<script type="text/javascript" src="editor/sceneexplorer.js" defer></script>

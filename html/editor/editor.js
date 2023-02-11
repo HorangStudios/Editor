@@ -12,13 +12,14 @@ var mainwindow = document.getElementById('section');
 // Create a scene
 var scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera(75, 512 / 512, 0.1, 1000);
+//create a camera
+var camera = new THREE.PerspectiveCamera(75, 640 / 400, 0.1, 1000);
 camera.position.set(5, 5, 5);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 // Create a renderer
 var renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(512, 512);
+renderer.setSize(640, 400);
 renderer.setClearColor(0xadd8e6); // Set the background color to #add8e6
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -189,6 +190,7 @@ function render() {
     requestAnimationFrame(render);
     renderer.render(scene, camera);
     controls.update();
+    updateResourceMonitor()
 
     $(".childwindow").draggable({ handle: ".title-bar", containment: "#section" });
 }
