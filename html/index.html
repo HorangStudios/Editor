@@ -43,6 +43,12 @@
     .status-bar-field {
         width: 25%;
     }
+
+    .toolbaricon {
+        width: 28px;
+        box-sizing: border-box;
+        text-align: center;
+    }
 </style>
 
 <title>HorangHill Editor Beta 3</title>
@@ -51,13 +57,18 @@
 <script type="text/javascript" src="../js/close.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../js/jqueryui2.js"></script>
-<script type="text/javascript" src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/exporters/GLTFExporter.js" defer></script>
-<script type="text/javascript" src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/loaders/GLTFLoader.js" defer></script>
+<script type="text/javascript" src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/exporters/GLTFExporter.js"
+    defer></script>
+<script type="text/javascript" src="https://raw.githack.com/mrdoob/three.js/r119/examples/js/loaders/GLTFLoader.js"
+    defer></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.119.1/build/three.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/OrbitControls.js"></script>
+<script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/OrbitControls.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/libs/stats.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/TransformControls.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/three@0.119.1/examples/js/controls/TransformControls.js"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
 <script type="text/javascript" src="editor/resourcemonitor.js"></script>
 <script type="text/javascript" src="editor/fontawesome.js"></script>
 
@@ -130,31 +141,49 @@
             </li>
         </ul>
         <ul role="menubar" class="has-shadow">
-            <li role="menuitem" class="itemdivider" tabindex="0">|</li>
+            <li role="menuitem" class="toolbaricon" tabindex="0">|</li>
 
-            <li role="menuitem" tabindex="0" onclick="createcube()"><i class="fa-solid fa-cube"></i></li>
-            <li role="menuitem" tabindex="0" onclick="createsphere()"><i class="fa-solid fa-circle-half-stroke"></i>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="transformControls.setMode('translate');">
+                <img src="../resources/icons/arrow_nsew.png">
             </li>
-            <li role="menuitem" tabindex="0" onclick="createcone()"><i class="fa-solid fa-square-caret-up"></i></li>
-            <li role="menuitem" tabindex="0" onclick="createlight()"><i class="fa-solid fa-lightbulb"></i></li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="transformControls.setMode('rotate');">
+                <img src="../resources/icons/Silk_arrow_rotate_anticlockwise.png">
+            </li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="transformControls.setMode('scale');">
+                <img src="../resources/icons/Silk_arrow_out.png">
+            </li>
 
-            <li role="menuitem" class="itemdivider" tabindex="0">|</li>
+            <li role="menuitem" class="toolbaricon" tabindex="0">|</li>
 
-            <li role="menuitem" tabindex="0" onclick="transformControls.setMode('translate');"><i
-                    class="fa-solid fa-up-down-left-right"></i></li>
-            <li role="menuitem" tabindex="0" onclick="transformControls.setMode('rotate');"><i
-                    class="fa-solid fa-rotate"></i></li>
-            <li role="menuitem" tabindex="0" onclick="transformControls.setMode('scale');"><i
-                    class="fa-solid fa-maximize"></i></li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="createcube()">
+                <img src="../resources/icons/brick_add.png">
+            </li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="createcylinder()">
+                <img src="../resources/icons/database_add.png">
+            </li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="createsphere()">
+                <img src="../resources/icons/Contrast_high.png">
+            </li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="createcone()">
+                <img src="../resources/icons/Silk_bullet_arrow_up.png">
+            </li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="createlight()">
+                <img src="../resources/icons/lightbulb_add.png">
+            </li>
 
-            <li role="menuitem" class="itemdivider" tabindex="0">|</li>
+            <li role="menuitem" class="toolbaricon" tabindex="0">|</li>
 
-            <li role="menuitem" tabindex="0" onclick="openscriptwindow()"><i class="fa-brands fa-js"></i></li>
-            <li role="menuitem" tabindex="0" onclick="openlogwindow()"><i class="fa-solid fa-terminal"></i></li>
-            <li role="menuitem" tabindex="0" onclick="openscenelist(); loadsceneexplorer()"><i
-                    class="fa-solid fa-list-ol"></i></li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="openscriptwindow()">
+                <img src="../resources/icons/script_add.png">
+            </li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="openlogwindow()">
+                <img src="../resources/icons/bug_fix.png">
+            </li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="openscenelist(); loadsceneexplorer()">
+                <img src="../resources/icons/Folder_brick.png">
+            </li>
 
-            <li role="menuitem" class="itemdivider" tabindex="0">|</li>
+            <li role="menuitem" class="toolbaricon" tabindex="0">|</li>
         </ul>
         <section style="height: calc(100% - 56px); width: 100%;" id="section">
             <div class="window active glass above childwindow">
@@ -252,6 +281,7 @@
 <script type="text/javascript" src="editor/newcube.js" defer></script>
 <script type="text/javascript" src="editor/newsphere.js" defer></script>
 <script type="text/javascript" src="editor/newcone.js" defer></script>
+<script type="text/javascript" src="editor/newcylinder.js" defer></script>
 <script type="text/javascript" src="editor/newlight.js" defer></script>
 <script type="text/javascript" src="editor/meshselect.js" defer></script>
 <script type="text/javascript" src="editor/sceneexplorer.js" defer></script>

@@ -133,6 +133,23 @@ function addCone(x, y, z, sizeX, sizeY, sizeZ, color) {
     loadsceneexplorer()
 }
 
+function addCylinder(x, y, z, sizeX, sizeY, sizeZ, radialSegments, color) {
+    // Create a new geometry for the cone
+    var geometry = new THREE.CylinderGeometry(sizeX, sizeY, sizeZ, radialSegments);
+    // Create a new material for the cone
+    var material = new THREE.MeshPhongMaterial({ color: color });
+    // Create a new mesh from the geometry and material
+    var cylinder = new THREE.Mesh(geometry, material);
+    cylinder.castShadow = true;
+    cylinder.receiveShadow = true;
+    cylinder.position.set(x, y, z);
+    // Add the cone to the scene
+    scene.add(cylinder);
+    // Add the cone to the list of objects
+    objects.push(cylinder);
+    loadsceneexplorer()
+}
+
 function addLight(x, y, z, intensity, distance, color) {
     // Create a new point light
     var light = new THREE.PointLight(color, intensity, distance);
