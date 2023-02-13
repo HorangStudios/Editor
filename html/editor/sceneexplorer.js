@@ -1,8 +1,8 @@
 var objectList = document.getElementById("scenelist");
 
-function loadsceneexplorer() {
+function loadsceneexplorer(selectedscene) {
     objectList.innerHTML = "";
-    scene.children.forEach(function (object) {
+    selectedscene.children.forEach(function (object) {
             var listItem = document.createElement("li");
             listItem.role = "option";
             listItem.innerHTML = object.type;

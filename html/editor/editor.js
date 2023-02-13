@@ -97,7 +97,8 @@ function spawnCube(x, y, z, sizeX, sizeY, sizeZ, color) {
     // Add the cube to the scene
     scene.add(cube);
     objects.push(cube);
-    loadsceneexplorer()
+    loadsceneexplorer(scene)
+    saveSceneState()
 }
 
 function addSphere(sphereradius, spherewidth, sphereheight, sizeX, sizeY, sizeZ, color) {
@@ -113,7 +114,8 @@ function addSphere(sphereradius, spherewidth, sphereheight, sizeX, sizeY, sizeZ,
     // Add the sphere to the scene
     scene.add(sphere);
     objects.push(sphere);
-    loadsceneexplorer()
+    loadsceneexplorer(scene)
+    saveSceneState()
 }
 
 function addCone(x, y, z, sizeX, sizeY, sizeZ, color) {
@@ -130,7 +132,8 @@ function addCone(x, y, z, sizeX, sizeY, sizeZ, color) {
     scene.add(cone);
     // Add the cone to the list of objects
     objects.push(cone);
-    loadsceneexplorer()
+    loadsceneexplorer(scene)
+    saveSceneState()
 }
 
 function addCylinder(x, y, z, sizeX, sizeY, sizeZ, radialSegments, color) {
@@ -147,7 +150,8 @@ function addCylinder(x, y, z, sizeX, sizeY, sizeZ, radialSegments, color) {
     scene.add(cylinder);
     // Add the cone to the list of objects
     objects.push(cylinder);
-    loadsceneexplorer()
+    loadsceneexplorer(scene)
+    saveSceneState()
 }
 
 function addLight(x, y, z, intensity, distance, color) {
@@ -159,7 +163,8 @@ function addLight(x, y, z, intensity, distance, color) {
     // Add the light to the scene
     scene.add(light);
     objects.push(light);
-    loadsceneexplorer()
+    loadsceneexplorer(scene)
+    saveSceneState()
 }
 
 // Function to export the scene to a GLTF file
@@ -183,6 +188,7 @@ function importScene() {
     var loader = new THREE.GLTFLoader();
     loader.load(URL.createObjectURL(file), function (gltf) {
         scene.add(gltf.scene);
+        saveSceneState()
         // gltf.scene.children.forEach(function (object) {
         //     scene.add(object);
         // });

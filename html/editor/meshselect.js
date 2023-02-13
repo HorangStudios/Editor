@@ -68,16 +68,28 @@ function viewobject(selectedObject) {
         customwindow.remove()
         transformControls.detach();
         loadsceneexplorer()
+        saveSceneState()
     }
 
+    //view child mesh button
+    var explorechildbtn = document.createElement("button");
+    explorechildbtn.innerHTML = 'See Child Elements'
+    explorechildbtn.onclick = function () {
+        loadsceneexplorer(selectedObject)
+        document.getElementById("sceneexplorerwindow").style.display = "block";
+    }
+
+    //add delete button
+    windowcontent.appendChild(deletebtn)
+    windowcontent.appendChild(explorechildbtn)
+
     //set mesh description
-    windowcontent.innerHTML = (
+    var meshdetails = document.createElement("p");
+    meshdetails.innerHTML = (
         "Position: <br> " + JSON.stringify(selectedObject.position, null, 4) +
         "<br><br> Rotation: <br> " + JSON.stringify(selectedObject.rotation, null, 4) +
         "<br><br> Scale: <br> " + JSON.stringify(selectedObject.geometry.parameters, null, 4) +
         "<br><br> Color: <br> #" + selectedObject.material.color.getHexString() + "<div style='padding: 3px; background: #" + selectedObject.material.color.getHexString() + " ;'></div><br>"
     );
-
-    //add delete button
-    windowcontent.appendChild(deletebtn)
+    windowcontent.appendChild(meshdetails)
 }

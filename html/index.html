@@ -11,11 +11,6 @@
         transition: all 0.1s ease !important;
     }
 
-    /* #canvas {
-        height: 100% !important;
-        width: 100% !important;
-    } */
-
     .above {
         position: absolute !important;
         z-index: 2;
@@ -106,41 +101,45 @@
                     <li role="menuitem" onclick="window.close()"><a href="#menubar">Exit</a></li>
                 </ul>
             </li>
-            <li role="menuitem" tabindex="0" aria-haspopup="true" aria-disabled="true">
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
                 Edit
                 <ul role="menu">
-                    <li role="menuitem"><a href="#menubar">Undo</a></li>
-                    <li role="menuitem"><a href="#menubar">Copy</a></li>
-                    <li role="menuitem"><a href="#menubar">Cut</a></li>
-                    <li role="menuitem" class="has-divider"><a href="#menubar">Paste</a></li>
-                    <li role="menuitem"><a href="#menubar">Delete</a></li>
-                    <li role="menuitem"><a href="#menubar">Find...</a></li>
-                    <li role="menuitem"><a href="#menubar">Replace...</a></li>
-                    <li role="menuitem"><a href="#menubar">Go to...</a></li>
+                    <li role="menuitem" onclick="undoScene()"><a href="#menubar">Undo</a></li>
+                    <li role="menuitem" onclick="redoScene()"><a href="#menubar">Redo</a></li>
                 </ul>
             </li>
-            <li role="menuitem" tabindex="0" aria-haspopup="true" aria-disabled="true">
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
                 View
                 <ul role="menu">
-                    <li role="menuitem" tabindex="0" aria-haspopup="true">
+                    <li role="menuitem" tabindex="0" aria-haspopup="true" class="has-divider">
                         Zoom
                         <ul role="menu">
-                            <li role="menuitem"><button>Zoom In</button></li>
-                            <li role="menuitem"><button>Zoom Out</button></li>
+                            <li role="menuitem" onclick="camera.position.z -= 1;"><button>Zoom In</button></li>
+                            <li role="menuitem" onclick="camera.position.z += 1;"><button>Zoom Out</button></li>
                         </ul>
                     </li>
-                    <li role="menuitem"><a href="#menubar">Status Bar</a></li>
+                    <li role="menuitem" onclick="openscriptwindow()">
+                        <img src="../resources/icons/script_add.png"/>
+                        <a href="#menu">Editor Scripts</a>
+                    </li>
+                    <li role="menuitem" onclick="openlogwindow()">
+                        <img src="../resources/icons/application_xp_terminal.png"/>
+                        <a href="#menu">Editor Log</a>
+                    </li>
+                    <li role="menuitem" onclick="openscenelist(); loadsceneexplorer(scene)">
+                        <img src="../resources/icons/Folder_brick.png"/>
+                        <a href="#menu">Scene Explorer</a>
+                    </li>
                 </ul>
             </li>
-            <li role="menuitem" tabindex="0" aria-haspopup="true" aria-disabled="true">
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
                 Help
                 <ul role="menu">
-                    <li role="menuitem"><a href="#menubar">View Help</a></li>
-                    <li role="menuitem"><a href="#menubar">About</a></li>
+                    <li role="menuitem" onclick="showabout()"><a href="#menubar">About</a></li>
                 </ul>
             </li>
         </ul>
-        <ul role="menubar" class="has-shadow">
+        <ul role="menubar" class="has-shadow" style="background: none;">
             <li role="menuitem" class="toolbaricon" tabindex="0">|</li>
 
             <li role="menuitem" class="toolbaricon" tabindex="0" onclick="transformControls.setMode('translate');">
@@ -177,9 +176,9 @@
                 <img src="../resources/icons/script_add.png">
             </li>
             <li role="menuitem" class="toolbaricon" tabindex="0" onclick="openlogwindow()">
-                <img src="../resources/icons/bug_fix.png">
+                <img src="../resources/icons/application_xp_terminal.png">
             </li>
-            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="openscenelist(); loadsceneexplorer()">
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="openscenelist(); loadsceneexplorer(scene)">
                 <img src="../resources/icons/Folder_brick.png">
             </li>
 
@@ -277,6 +276,9 @@
     }
 
 </script>
+<script type="text/javascript" src="editor/attr.js" defer></script>
+<script type="text/javascript" src="editor/undo.js" defer></script>
+<script type="text/javascript" src="editor/sceneexplorer.js" defer></script>
 <script type="text/javascript" src="editor/editor.js" defer></script>
 <script type="text/javascript" src="editor/newcube.js" defer></script>
 <script type="text/javascript" src="editor/newsphere.js" defer></script>
@@ -284,4 +286,3 @@
 <script type="text/javascript" src="editor/newcylinder.js" defer></script>
 <script type="text/javascript" src="editor/newlight.js" defer></script>
 <script type="text/javascript" src="editor/meshselect.js" defer></script>
-<script type="text/javascript" src="editor/sceneexplorer.js" defer></script>
