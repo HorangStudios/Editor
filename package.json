@@ -11,7 +11,7 @@
     "buildwin": "electron-builder --win"
   },
   "author": "",
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "devDependencies": {
     "electron": "^4.2.12",
     "electron-builder": "^20.44.4"
