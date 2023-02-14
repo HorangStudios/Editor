@@ -43,3 +43,15 @@ function redo() {
         shell.beep()
     }
 }
+
+document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.key === "z") {
+        undo();
+    }
+});
+
+document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.key === "y") {
+        redo();
+    }
+});
