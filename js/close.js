@@ -1,6 +1,7 @@
 const remote = require('electron').remote;
 const getWin = () => remote.BrowserWindow.getFocusedWindow();
 window.$ = window.jQuery = require('jquery');
+const { shell } = require('electron')
 
 const closeWin = () => {
     getWin().close();

@@ -68,7 +68,7 @@ function viewobject(selectedObject) {
         customwindow.remove()
         transformControls.detach();
         loadsceneexplorer()
-        saveSceneState()
+        addObject()
     }
 
     //view child mesh button
