@@ -11,7 +11,7 @@
     "buildwin": "electron-builder --win"
   },
   "author": "",
-  "license": "AGPL-3.0",
+  "license": "GPL-3.0",
   "devDependencies": {
     "electron": "^4.2.12",
     "electron-builder": "^20.44.4"
@@ -38,6 +38,7 @@
     }
   },
   "dependencies": {
+    "firebase": "^9.17.1",
     "jquery": "^3.6.3"
   }
 }

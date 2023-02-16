@@ -119,15 +119,15 @@
                         </ul>
                     </li>
                     <li role="menuitem" onclick="openscriptwindow()">
-                        <img src="../resources/icons/script_add.png"/>
+                        <img src="../resources/icons/script_add.png" />
                         <a href="#menu">Editor Scripts</a>
                     </li>
                     <li role="menuitem" onclick="openlogwindow()">
-                        <img src="../resources/icons/application_xp_terminal.png"/>
+                        <img src="../resources/icons/application_xp_terminal.png" />
                         <a href="#menu">Editor Log</a>
                     </li>
                     <li role="menuitem" onclick="openscenelist(); loadsceneexplorer(scene)">
-                        <img src="../resources/icons/Folder_brick.png"/>
+                        <img src="../resources/icons/Folder_brick.png" />
                         <a href="#menu">Scene Explorer</a>
                     </li>
                 </ul>
@@ -180,6 +180,15 @@
             </li>
             <li role="menuitem" class="toolbaricon" tabindex="0" onclick="openscenelist(); loadsceneexplorer(scene)">
                 <img src="../resources/icons/Folder_brick.png">
+            </li>
+
+            <li role="menuitem" class="toolbaricon" tabindex="0">|</li>
+
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="runscript = 1">
+                <img src="../resources/icons/control_play_blue.png">
+            </li>
+            <li role="menuitem" class="toolbaricon" tabindex="0" onclick="runscript = 0">
+                <img src="../resources/icons/control_pause_blue.png">
             </li>
 
             <li role="menuitem" class="toolbaricon" tabindex="0">|</li>
@@ -244,38 +253,6 @@
     </div>
 </div>
 
-
-<script type="x-shader/x-vertex" id="vertexShader">
-
-    varying vec3 vWorldPosition;
-
-    void main() {
-
-        vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
-        vWorldPosition = worldPosition.xyz;
-
-        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-
-    }
-
-</script>
-<script type="x-shader/x-fragment" id="fragmentShader">
-
-    uniform vec3 topColor;
-    uniform vec3 bottomColor;
-    uniform float offset;
-    uniform float exponent;
-
-    varying vec3 vWorldPosition;
-
-    void main() {
-
-        float h = normalize( vWorldPosition + offset ).y;
-        gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), 1.0 );
-
-    }
-
-</script>
 <script type="text/javascript" src="editor/attr.js" defer></script>
 <script type="text/javascript" src="editor/undo.js" defer></script>
 <script type="text/javascript" src="editor/sceneexplorer.js" defer></script>

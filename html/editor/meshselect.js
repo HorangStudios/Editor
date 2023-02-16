@@ -20,7 +20,16 @@ function onDocumentMouseDown(event) {
         // Get the first intersected object
         var selectedObject = intersects[0].object;
 
-        // viewobject(selectedObject);
+        if (runscript == 1) {
+            if (selectedObject.click) {
+                try {
+                    selectedObject.click(selectedObject);
+                }
+                catch (err) {
+                    debug("[ERR] " + err.message);
+                }
+            }
+        }
     }
 }
 
@@ -45,7 +54,7 @@ function viewobject(selectedObject) {
     titlebar.className = "title-bar";
     customwindow.appendChild(titlebar);
 
-    titlebartext.innerHTML = "Mesh Properties"
+    titlebartext.innerHTML = "Object Properties"
     titlebartext.className = "title-bar-text"
     titlebar.appendChild(titlebartext);
 
@@ -60,15 +69,18 @@ function viewobject(selectedObject) {
     windowcontent.className = "window-body has-space";
     customwindow.appendChild(windowcontent);
 
+    //quick actions
+    let quickactions = document.createElement('fieldset');
+    quickactions.innerHTML = "<legend>Quick Actions</legend>";
+
     //delete mesh button
     var deletebtn = document.createElement("button");
     deletebtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete Element'
     deletebtn.onclick = function () {
-        scene.remove(selectedObject)
+        removeObject(selectedObject)
         customwindow.remove()
         transformControls.detach();
-        loadsceneexplorer()
-        addObject()
+        loadsceneexplorer(scene)
     }
 
     //view child mesh button
@@ -80,16 +92,45 @@ function viewobject(selectedObject) {
     }
 
     //add delete button
-    windowcontent.appendChild(deletebtn)
-    windowcontent.appendChild(explorechildbtn)
+    quickactions.appendChild(deletebtn)
+    quickactions.appendChild(explorechildbtn)
+    windowcontent.appendChild(quickactions);
 
-    //set mesh description
-    var meshdetails = document.createElement("p");
-    meshdetails.innerHTML = (
-        "Position: <br> " + JSON.stringify(selectedObject.position, null, 4) +
-        "<br><br> Rotation: <br> " + JSON.stringify(selectedObject.rotation, null, 4) +
-        "<br><br> Scale: <br> " + JSON.stringify(selectedObject.geometry.parameters, null, 4) +
-        "<br><br> Color: <br> #" + selectedObject.material.color.getHexString() + "<div style='padding: 3px; background: #" + selectedObject.material.color.getHexString() + " ;'></div><br>"
-    );
-    windowcontent.appendChild(meshdetails)
+    //add mesh description
+    let propertiessection = document.createElement('fieldset');
+    propertiessection.innerHTML = "<legend>Object Properties</legend>";
+    propertiessection.appendChild(windowcontent.appendChild(createCubePropertiesTableRow(selectedObject)))
+    windowcontent.appendChild(propertiessection);
+
+    //update script description
+    let updatescript = document.createElement('fieldset');
+    let textareascript = document.createElement('textarea');
+    textareascript.style.width = "100%";
+    textareascript.style.resize = "vertical";
+    updatescript.innerHTML = "<legend>Update Script</legend>";
+    updatescript.appendChild(textareascript);
+    windowcontent.appendChild(updatescript);
+    if (typeof selectedObject.script !== "undefined") {
+        const functionBody = selectedObject.script.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
+        textareascript.innerHTML = functionBody;
+    }
+    textareascript.onchange = function () {
+        selectedObject.script = new Function("mesh", textareascript.value);
+    }
+
+    //click script description
+    let clickscript = document.createElement('fieldset');
+    let clicktextareascript = document.createElement('textarea');
+    clicktextareascript.style.width = "100%";
+    clicktextareascript.style.resize = "vertical";
+    clickscript.innerHTML = "<legend>Click Script</legend>";
+    clickscript.appendChild(clicktextareascript);
+    windowcontent.appendChild(clickscript);
+    if (typeof selectedObject.click !== "undefined") {
+        const functionBody = selectedObject.click.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
+        clicktextareascript.innerHTML = functionBody;
+    }
+    clicktextareascript.onchange = function () {
+        selectedObject.click = new Function("mesh", clicktextareascript.value);
+    }
 }

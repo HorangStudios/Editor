@@ -6,7 +6,6 @@ function addObject() {
     sceneHistory.splice(currentIndex + 1, sceneHistory.length - currentIndex); // remove history after current index
     sceneHistory.push(objects.slice()); // add current state of objects to history
     currentIndex = sceneHistory.length - 1; // update current index
-    updateScene();
 }
 
 // update scene to display all objects
@@ -42,6 +41,18 @@ function redo() {
     } else {
         shell.beep()
     }
+}
+
+// remove object from the scene
+function removeObject(mesh) {
+    sceneHistory.splice(currentIndex + 1, sceneHistory.length - currentIndex); // remove history after current index
+    sceneHistory.push(objects.slice()); // add current state of objects to history
+    currentIndex = sceneHistory.length - 1; // update current index
+    let index = objects.indexOf(mesh);
+    if (index > -1) {
+        objects.splice(index, 1);
+    }
+    scene.remove(mesh);
 }
 
 document.addEventListener("keydown", function (event) {
