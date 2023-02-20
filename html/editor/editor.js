@@ -212,13 +212,15 @@ function runscript() {
 }
 
 // Render the scene
-function render() {
-    requestAnimationFrame(render);
-    renderer.render(scene, camera);
-    controls.update();
-    updateResourceMonitor()
+function animate() {
 
-    $(".childwindow").draggable({ handle: ".title-bar", containment: "#section" });
+    requestAnimationFrame(animate);
+
+    render();
+
+}
+
+function render() {
 
     if (runscript == 1) {
         scene.traverse(function (object) {
@@ -232,6 +234,14 @@ function render() {
             }
         });
     }
+
+    $(".childwindow").draggable({ handle: ".title-bar", containment: "#section" });
+
+    controls.update()
+
+    updateResourceMonitor()
+
+    renderer.render(scene, camera);
 }
 
 function openscriptwindow() {
@@ -251,7 +261,7 @@ function openlogwindow() {
         x.style.display = "none";
     }
 }
-render();
+animate()
 
 //Spawn baseplate
 spawnCube(0, 0, 0, 16, 1, 16, 0x00ff00)
