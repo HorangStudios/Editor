@@ -91,9 +91,19 @@ function viewobject(selectedObject) {
         document.getElementById("sceneexplorerwindow").style.display = "block";
     }
 
+    //duplicate mesh button
+    var duplicateBtn = document.createElement("button");
+    duplicateBtn.innerHTML = 'Duplicate Object'
+    duplicateBtn.onclick = function () {
+        let newmesh = selectedObject.clone()
+        scene.add(newmesh);
+        loadsceneexplorer(scene)
+    }
+
     //add delete button
     quickactions.appendChild(deletebtn)
     quickactions.appendChild(explorechildbtn)
+    quickactions.appendChild(duplicateBtn)
     windowcontent.appendChild(quickactions);
 
     //add mesh description
