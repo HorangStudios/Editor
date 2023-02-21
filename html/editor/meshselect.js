@@ -21,9 +21,9 @@ function onDocumentMouseDown(event) {
         var selectedObject = intersects[0].object;
 
         if (runscript == 1) {
-            if (selectedObject.click) {
+            if (selectedObject.userData.clickscriptfunction) {
                 try {
-                    selectedObject.click(selectedObject);
+                    selectedObject.userData.clickscriptfunction(selectedObject);
                 }
                 catch (err) {
                     debug("[ERR] " + err.message);
@@ -120,12 +120,14 @@ function viewobject(selectedObject) {
     updatescript.innerHTML = "<legend>Update Script</legend>";
     updatescript.appendChild(textareascript);
     windowcontent.appendChild(updatescript);
-    if (typeof selectedObject.script !== "undefined") {
-        const functionBody = selectedObject.script.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
+    if (typeof selectedObject.userData.script !== "undefined") {
+        const functionBody = selectedObject.userData.script.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
         textareascript.innerHTML = functionBody;
     }
     textareascript.onchange = function () {
-        selectedObject.script = new Function("mesh", textareascript.value);
+        const scriptFunction = new Function("mesh", textareascript.value);
+        selectedObject.userData.script = scriptFunction.toString();
+        selectedObject.userData.scriptFunction = scriptFunction;
     }
 
     //click script description
@@ -136,11 +138,13 @@ function viewobject(selectedObject) {
     clickscript.innerHTML = "<legend>Click Script</legend>";
     clickscript.appendChild(clicktextareascript);
     windowcontent.appendChild(clickscript);
-    if (typeof selectedObject.click !== "undefined") {
-        const functionBody = selectedObject.click.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
+    if (typeof selectedObject.userData.clickscript !== "undefined") {
+        const functionBody = selectedObject.userData.clickscript.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
         clicktextareascript.innerHTML = functionBody;
     }
     clicktextareascript.onchange = function () {
-        selectedObject.click = new Function("mesh", clicktextareascript.value);
+        const clickscriptfunction = new Function("mesh", clicktextareascript.value);
+        selectedObject.userData.clickscript = clickscriptfunction.toString();
+        selectedObject.userData.clickscriptfunction = clickscriptfunction;
     }
 }

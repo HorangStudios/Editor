@@ -170,35 +170,62 @@ function addLight(x, y, z, intensity, distance, color) {
     addObject()
 }
 
-// Function to export the scene to a GLTF file
+// Function to export the scene to a HHLX file
 function exportScene() {
-    var exporter = new THREE.GLTFExporter();
-    exporter.parse(scene, function (result) {
-        var output = JSON.stringify(result, null, 2);
-        debug(JSON.stringify(output));
+    // Convert scene to JSON format
+    const json = JSON.stringify(scene.toJSON(), null, 2);
+    transformControls.detach()
+    transformControls.dispose()
 
-        var link = document.createElement('a');
-        link.href = URL.createObjectURL(new Blob([output], { type: 'text/plain' }));
-        link.download = 'scene.gltf';
-        link.click();
-    }, { trs: true });
+    // Create a new blob with the JSON data and custom file extension
+    const blob = new Blob([json], { type: "application/json" });
+    const fileName = "scene.HHLX";
+
+    // Use the browser's native save dialog to save the file
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    link.click();
 }
 
 // Function to import a GLTF file to the scene
 function importScene() {
     var input = document.getElementById("file-input");
-    var file = input.files[0];
-    var loader = new THREE.GLTFLoader();
-    loader.load(URL.createObjectURL(file), function (gltf) {
-        scene.add(gltf.scene);
-        addObject()
-        // gltf.scene.children.forEach(function (object) {
-        //     scene.add(object);
-        // });
-    }, undefined, function (error) {
-        console.error(error);
-    });
+    const file = input.files[0];
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const contents = event.target.result;
+        const json = JSON.parse(contents);
+        scene.children = importJSON(json).children;
+        scene.add(transformControls);
+    };
+
+    reader.readAsText(file);
 }
+
+function importJSON(jsonString) {
+    const loader = new THREE.ObjectLoader();
+    const scene = loader.parse(jsonString);
+
+    scene.traverse((mesh) => {
+        if (mesh.userData && mesh.userData.script) {
+            const functionBody = mesh.userData.script.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
+            const scriptFunction = new Function("mesh", functionBody);
+            mesh.userData.scriptFunction = scriptFunction;
+        }
+
+        if (mesh.userData && mesh.userData.clickscript) {
+            const functionBody = mesh.userData.clickscript.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
+            const clickscriptfunction = new Function("mesh", functionBody);
+            mesh.userData.clickscriptfunction = clickscriptfunction;
+        }
+    });
+
+    return scene;
+}
+
 
 function runEditorScript() {
     let script = document.getElementById("scripteditorbox").value
@@ -224,9 +251,9 @@ function render() {
 
     if (runscript == 1) {
         scene.traverse(function (object) {
-            if (object instanceof THREE.Mesh && object.script) {
+            if (object instanceof THREE.Mesh && object.userData.scriptFunction) {
                 try {
-                    object.script(object);
+                    object.userData.scriptFunction(object);
                 }
                 catch (err) {
                     debug("[ERR] " + err.message);
