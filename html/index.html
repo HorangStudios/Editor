@@ -89,7 +89,8 @@
                     </li>
                     <li role="menuitem" onclick="document.getElementById('file-input').click();">
                         <a href="#menubar">
-                            <input type="file" accept=".hhlx" id="file-input" onchange="importScene()" style="display: none;" />
+                            <input type="file" accept=".hhlx" id="file-input" onchange="importScene()"
+                                style="display: none;" />
                             Open...
                         </a>
                     </li>
@@ -97,6 +98,12 @@
                         <a href="#menubar">
                             Save as...
                         </a>
+                    </li>
+                    <li role="menuitem" tabindex="0" aria-haspopup="true" class="has-divider">
+                        Export
+                        <ul role="menu">
+                            <li role="menuitem" onclick="exportgltf()"><button>GLTF</button></li>
+                        </ul>
                     </li>
                     <li role="menuitem" onclick="window.close()"><a href="#menubar">Exit</a></li>
                 </ul>

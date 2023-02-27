@@ -170,6 +170,19 @@ function addLight(x, y, z, intensity, distance, color) {
     addObject()
 }
 
+// Function to export the scene to a GLTF file
+function exportgltf() {
+    var exporter = new THREE.GLTFExporter();
+    exporter.parse(scene, function (result) {
+        var output = JSON.stringify(result, null, 2);
+
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(new Blob([output], { type: 'text/plain' }));
+        link.download = 'scene.gltf';
+        link.click();
+    }, { trs: true });
+}
+
 // Function to export the scene to a HHLX file
 function exportScene() {
     // Convert scene to JSON format
