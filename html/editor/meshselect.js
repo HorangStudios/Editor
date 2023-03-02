@@ -147,4 +147,22 @@ function viewobject(selectedObject) {
         selectedObject.userData.clickscript = clickscriptfunction.toString();
         selectedObject.userData.clickscriptfunction = clickscriptfunction;
     }
+
+    //init script description
+    let initscript = document.createElement('fieldset');
+    let inittextareascript = document.createElement('textarea');
+    inittextareascript.style.width = "100%";
+    inittextareascript.style.resize = "vertical";
+    initscript.innerHTML = "<legend>Init Script</legend>";
+    initscript.appendChild(inittextareascript);
+    windowcontent.appendChild(initscript);
+    if (typeof selectedObject.userData.initscript !== "undefined") {
+        const functionBody = selectedObject.userData.initscript.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1];
+        inittextareascript.innerHTML = functionBody;
+    }
+    inittextareascript.onchange = function () {
+        const initscriptfunction = new Function("mesh", inittextareascript.value);
+        selectedObject.userData.initscript = initscriptfunction.toString();
+        selectedObject.userData.initscriptfunction = initscriptfunction;
+    }
 }
