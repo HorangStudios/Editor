@@ -19,17 +19,6 @@ function onDocumentMouseDown(event) {
     if (intersects.length > 0) {
         // Get the first intersected object
         var selectedObject = intersects[0].object;
-
-        if (runscript == 1) {
-            if (selectedObject.userData.clickscriptfunction) {
-                try {
-                    selectedObject.userData.clickscriptfunction(selectedObject);
-                }
-                catch (err) {
-                    debug("[ERR] " + err.message);
-                }
-            }
-        }
     }
 }
 

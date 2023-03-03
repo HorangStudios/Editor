@@ -12,9 +12,6 @@ var mainwindow = document.getElementById('section');
 // Create a scene
 var scene = new THREE.Scene();
 
-//run scripts
-var runscript = 0;
-
 //create a camera
 var camera = new THREE.PerspectiveCamera(75, 640 / 400, 0.1, 1000);
 camera.position.set(5, 5, 5);
@@ -261,20 +258,6 @@ function animate() {
 }
 
 function render() {
-
-    if (runscript == 1) {
-        scene.traverse(function (object) {
-            if (object instanceof THREE.Mesh && object.userData.scriptFunction) {
-                try {
-                    object.userData.scriptFunction(object);
-                }
-                catch (err) {
-                    debug("[ERR] " + err.message);
-                }
-            }
-        });
-    }
-
     $(".childwindow").draggable({ handle: ".title-bar", containment: "#section" });
 
     controls.update()
