@@ -1,32 +1,22 @@
 version: 2.1
+
 jobs:
   build:
-    working_directory: ~/repo
     docker:
-      - image: circleci/node:13
+      - image: circleci/node:14-browsers
     steps:
       - checkout
+      - run: npm ci
+      - run: npm run build
       - run:
-          name: Install dependencies
-          command: npm i
-      - run:
-          name: Install dpkg and fakeroot
-          command: |
-            sudo apt-get update -y
-            sudo dpkg --add-architecture i386 && sudo apt-get update -y
-            sudo apt-get install -y dpkg fakeroot wine32 wine64 rpm
-      - run:
-          name: Generate Builds
-          command: npm run dist
-      - run:
-          name: Generate Windows Builds
-          command: npm run buildwin
-      - run:
-          name: Generate Win32 Builds
-          command: npx electron-builder --win --ia32
-      - run:
-          name: Delete foreign artifacts
-          command: cd dist && rm -rf win-unpacked && rm -rf win-ia32-unpacked && rm -rf linux-unpacked && cd ..
+          name: Publish to GitHub Releases
+          command: npx electron-builder --publish=always
 
-      - store_artifacts:
-          path: ~/repo/dist
+workflows:
+  version: 2
+  build-and-release:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: release
