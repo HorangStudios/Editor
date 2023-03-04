@@ -37,6 +37,14 @@
       "category": "Game"
     }
   },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "HorangStudios",
+      "repo": "Editor",
+      "token": "${GH_TOKEN}"
+    }
+  ],
   "dependencies": {
     "jquery": "^3.6.3"
   }
