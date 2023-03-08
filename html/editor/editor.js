@@ -167,6 +167,36 @@ function addLight(x, y, z, intensity, distance, color) {
     addObject()
 }
 
+function generateterrain(voxsize, tersize, color) {
+    // Create a new ImprovedNoise object
+    var noise = new THREE.ImprovedNoise();
+
+    // Create a voxel size and terrain size
+    var voxelSize = voxsize;
+    var terrainSize = tersize;
+
+    // Create a new geometry and material for the voxel terrain
+    var geometry = new THREE.BoxGeometry(voxelSize, voxelSize, voxelSize);
+    var material = new THREE.MeshPhongMaterial({ color: color });
+
+    // Loop through each position in the terrain and create a voxel mesh
+    for (var x = 0; x < terrainSize; x++) {
+        for (var y = 0; y < terrainSize; y++) {
+            // Generate a random height value using ImprovedNoise
+            var height = noise.noise(x / 10, y / 10, 0) * 10;
+
+            // Create a new voxel mesh and position it based on the terrain size and voxel size
+            var voxel = new THREE.Mesh(geometry, material);
+            voxel.position.x = x * voxelSize;
+            voxel.position.y = height;
+            voxel.position.z = y * voxelSize;
+
+            // Add the voxel mesh to the scene
+            scene.add(voxel);
+        }
+    }
+}
+
 // Function to export the scene to a GLTF file
 function exportgltf() {
     var exporter = new THREE.GLTFExporter();

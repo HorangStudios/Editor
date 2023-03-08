@@ -11,7 +11,7 @@ function createClientWindow() {
         }
     })
 
-    childWindow.loadURL('https://horanghill.web.app/player/engine.html?online=false')
+    childWindow.loadURL('https://horanghill.web.app/html/player/engine.html?online=false')
 
     childWindow.webContents.once('did-finish-load', () => {
         // pass a reference to createScene to the child window
