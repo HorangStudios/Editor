@@ -54,6 +54,9 @@ dirLight.shadow.camera.bottom = - d;
 dirLight.shadow.camera.far = 3500;
 dirLight.shadow.bias = - 0.0001;
 
+const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+scene.add( light );
+
 //declare objects
 var objects = [];
 
