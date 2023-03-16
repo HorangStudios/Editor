@@ -6,3 +6,6 @@ Horanghill editor is a cutting-edge 3D editor built using ThreeJS, a popular Jav
 ## Help Fix!
 - Importing project files does not put the meshes on the scene explorer
 - Performance issues
+
+## Contact
+For business/customer inquiries, contact: ligmaHill@hotmail.com
