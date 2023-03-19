@@ -47,6 +47,11 @@
     .focused {
         z-index: 3 !important;
     }
+
+    .window, .window-body {
+        height: fit-content !important;
+        width: fit-content !important;
+    }
 </style>
 
 <title>HorangHill Editor Beta 4</title>
@@ -66,7 +71,7 @@
 <script type="text/javascript" src="editor/resourcemonitor.js"></script>
 <script type="text/javascript" src="editor/fontawesome.js"></script>
 
-<div class="window special active" style="width: 100vw; height: 100vh; box-sizing: border-box;">
+<div class="window special active" style="width: 100vw !important; height: 100vh !important; box-sizing: border-box;">
     <div class="title-bar draggable">
         <div class="title-bar-text">HorangHill Client</div>
         <div class="title-bar-controls nodrag">
@@ -76,7 +81,7 @@
             <button aria-label="Close" onclick="closeWin()"></button>
         </div>
     </div>
-    <div class="window-body" style="height: calc(100vh - 35px - 21px); box-sizing: border-box;">
+    <div class="window-body" style="height: calc(100vh - 35px - 21px) !important; box-sizing: border-box; width: calc(100vw - 14px) !important;">
         <ul role="menubar" class="can-hover">
             <li role="menuitem" tabindex="0" aria-haspopup="true">
                 File
@@ -232,7 +237,7 @@
                         <button aria-label="Close" onclick="openlogwindow()"></button>
                     </div>
                 </div>
-                <div class="window-body has-space" id="scriptlog" style="height: 202.5px; overflow: auto;">
+                <div class="window-body has-space" id="scriptlog" style="height: 250px !important; width: 250px !important; overflow: auto;">
                 </div>
             </div>
 
@@ -245,7 +250,7 @@
                     </div>
                 </div>
                 <div class="window-body" style="height: 250px; overflow: hidden;">
-                    <ul id="scenelist" role="listbox" class="has-shadow has-hover" style="width: 100%; height: 100%;">
+                    <ul id="scenelist" role="listbox" class="has-shadow has-hover" style="width: 250px; height: 275px;">
                     </ul>
                 </div>
             </div>
