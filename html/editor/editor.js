@@ -216,9 +216,9 @@ function exportgltf() {
 // Function to export the scene to a HHLX file
 function exportScene() {
     // Convert scene to JSON format
-    const json = JSON.stringify(scene.toJSON(), null, 2);
     transformControls.detach()
     transformControls.dispose()
+    const json = JSON.stringify(scene.toJSON(), null, 2);
 
     // Create a new blob with the JSON data and custom file extension
     const blob = new Blob([json], { type: "application/json" });
