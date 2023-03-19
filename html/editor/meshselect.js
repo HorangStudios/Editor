@@ -35,9 +35,14 @@ function viewobject(selectedObject) {
     let titlebartext = document.createElement('div');
     let titlebarcontrols = document.createElement('div');
     let windowcontent = document.createElement('div');
+    let navTabs = document.createElement('menu');
 
-    customwindow.className = "window active glass above childwindow";
-    customwindow.style.width = 300;
+    customwindow.className = "window active  above childwindow";
+    customwindow.onclick = function() {
+        focusWindow(this)
+    }
+    customwindow.style.width = 400;
+    customwindow.style.height = "fit-content";
     mainwindow.prepend(customwindow);
 
     titlebar.className = "title-bar";
@@ -56,11 +61,23 @@ function viewobject(selectedObject) {
     titlebar.appendChild(titlebarcontrols);
 
     windowcontent.className = "window-body has-space";
+    windowcontent.style.height = "fit-content";
     customwindow.appendChild(windowcontent);
 
+    navTabs.innerHTML = `
+        <button role="tab" aria-controls="tab-A" aria-selected="true">Quick Actions</button>
+        <button role="tab" aria-controls="tab-B">Properties</button>
+        <button role="tab" aria-controls="tab-C">Update Script</button>
+        <button role="tab" aria-controls="tab-D">Click Script</button>
+        <button role="tab" aria-controls="tab-E">Init Script</button>
+    `
+    navTabs.setAttribute("role", "tablist")
+    windowcontent.appendChild(navTabs);
+
     //quick actions
-    let quickactions = document.createElement('fieldset');
-    quickactions.innerHTML = "<legend>Quick Actions</legend>";
+    let quickactions = document.createElement('div');
+    quickactions.setAttribute("role", "tabpanel")
+    quickactions.id = "tab-A"
 
     //delete mesh button
     var deletebtn = document.createElement("button");
@@ -97,7 +114,9 @@ function viewobject(selectedObject) {
 
     //add mesh description
     let propertiessection = document.createElement('fieldset');
-    propertiessection.innerHTML = "<legend>Object Properties</legend>";
+    propertiessection.setAttribute("role", "tabpanel")
+    propertiessection.setAttribute("hidden", "")
+    propertiessection.id = "tab-B"
     propertiessection.appendChild(windowcontent.appendChild(createCubePropertiesTableRow(selectedObject)))
     windowcontent.appendChild(propertiessection);
 
@@ -106,7 +125,9 @@ function viewobject(selectedObject) {
     let textareascript = document.createElement('textarea');
     textareascript.style.width = "100%";
     textareascript.style.resize = "vertical";
-    updatescript.innerHTML = "<legend>Update Script</legend>";
+    updatescript.setAttribute("role", "tabpanel")
+    updatescript.setAttribute("hidden", "")
+    updatescript.id = "tab-C"
     updatescript.appendChild(textareascript);
     windowcontent.appendChild(updatescript);
     if (typeof selectedObject.userData.script !== "undefined") {
@@ -124,7 +145,9 @@ function viewobject(selectedObject) {
     let clicktextareascript = document.createElement('textarea');
     clicktextareascript.style.width = "100%";
     clicktextareascript.style.resize = "vertical";
-    clickscript.innerHTML = "<legend>Click Script</legend>";
+    clickscript.setAttribute("role", "tabpanel")
+    clickscript.setAttribute("hidden", "")
+    clickscript.id = "tab-D"
     clickscript.appendChild(clicktextareascript);
     windowcontent.appendChild(clickscript);
     if (typeof selectedObject.userData.clickscript !== "undefined") {
@@ -142,7 +165,9 @@ function viewobject(selectedObject) {
     let inittextareascript = document.createElement('textarea');
     inittextareascript.style.width = "100%";
     inittextareascript.style.resize = "vertical";
-    initscript.innerHTML = "<legend>Init Script</legend>";
+    initscript.setAttribute("role", "tabpanel")
+    initscript.setAttribute("hidden", "")
+    initscript.id = "tab-E"
     initscript.appendChild(inittextareascript);
     windowcontent.appendChild(initscript);
     if (typeof selectedObject.userData.initscript !== "undefined") {
@@ -154,4 +179,23 @@ function viewobject(selectedObject) {
         selectedObject.userData.initscript = initscriptfunction.toString();
         selectedObject.userData.initscriptfunction = initscriptfunction;
     }
+
+    const tabButtons = document.querySelectorAll("[role=tab]");
+    tabButtons.forEach((tabButton) => {
+        tabButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            const tabContainer = e.target.parentElement.parentElement;
+            const targetId = e.target.getAttribute("aria-controls");
+            tabButtons.forEach((_tabButton) =>
+                _tabButton.setAttribute("aria-selected", false)
+            );
+            tabButton.setAttribute("aria-selected", true);
+            tabContainer
+                .querySelectorAll("[role=tabpanel]")
+                .forEach((tabPanel) => tabPanel.setAttribute("hidden", true));
+            tabContainer
+                .querySelector(`[role=tabpanel]#${targetId}`)
+                .removeAttribute("hidden");
+        });
+    });
 }

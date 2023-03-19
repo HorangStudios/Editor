@@ -9,7 +9,7 @@ fetch("https://api.github.com/repos/HorangStudios/Editor/stargazers")
 
 function showabout() {
     window.alert(
-        'Horang Hill Editor Beta 3\n' +
+        'Horang Hill Editor Beta 4\n' +
         '\u00A9 2023 Horang Studios\n\n' +
         "Special Thanks to: " +
         JSON.stringify(stargazer, null , 2)

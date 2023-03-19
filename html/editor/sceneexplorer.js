@@ -100,3 +100,15 @@ function createCubePropertiesTableRow(cube) {
 
     return row;
 }
+
+function focusWindow(windowElem) {
+    const windows = document.querySelectorAll('.window');
+    windows.forEach((elem) => elem.classList.remove('active'));
+    windows.forEach((elem) => elem.classList.remove('focused'));
+    windows.forEach((elem) => elem.classList.remove('glass'));
+
+    windowElem.classList.add('focused');
+    windowElem.classList.add('glass');
+    windowElem.classList.add('active');
+  }
+  

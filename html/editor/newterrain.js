@@ -7,7 +7,10 @@ function createterrain() {
     let titlebarcontrols = document.createElement('div');
     let windowcontent = document.createElement('div');
 
-    customwindow.className = "window active glass above childwindow";
+    customwindow.className = "window active  above childwindow";
+    customwindow.onclick = function() {
+        focusWindow(this)
+    }
     customwindow.style.width = 300;
     mainwindow.prepend(customwindow);
 
