@@ -98,6 +98,28 @@ function createCubePropertiesTableRow(cube) {
     clrrow.appendChild(clrvalueCell);
     row.appendChild(clrrow);
 
+    //color
+    const texrow = document.createElement('tr');
+    const texlabelCell = document.createElement('td');
+    const texvalueCell = document.createElement('td');
+    const texLabel = document.createElement('td');
+    texLabel.innerText = 'Apply Texture: ';
+    const texInput = document.createElement('input');
+    texInput.addEventListener('change', () => {
+        if (texInput.value) {
+            const texture = new THREE.TextureLoader().load(texInput.value, () => {
+                // Once the texture is loaded, replace the sphere's material map with the new texture
+                cube.material.map = texture;
+                cube.material.needsUpdate = true;
+            });
+        }
+    });
+    texlabelCell.appendChild(texLabel);
+    texvalueCell.appendChild(texInput);
+    texrow.appendChild(texlabelCell);
+    texrow.appendChild(texvalueCell);
+    row.appendChild(texrow);
+
     return row;
 }
 
@@ -110,5 +132,4 @@ function focusWindow(windowElem) {
     windowElem.classList.add('focused');
     windowElem.classList.add('glass');
     windowElem.classList.add('active');
-  }
-  
+}
