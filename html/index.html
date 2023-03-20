@@ -141,9 +141,12 @@
                         <img src="../resources/icons/application_xp_terminal.png" />
                         <a href="#menu">Editor Log</a>
                     </li>
-                    <li role="menuitem" onclick="openscenelist(); loadsceneexplorer(scene)">
+                    <li role="menuitem" class="has-divider" onclick="openscenelist(); loadsceneexplorer(scene)">
                         <img src="../resources/icons/Folder_brick.png" />
                         <a href="#menu">Scene Explorer</a>
+                    </li>
+                    <li role="menuitem" onclick="remote.getCurrentWindow().webContents.openDevTools();">
+                        <a href="#menu">DevTools</a>
                     </li>
                 </ul>
             </li>
@@ -228,7 +231,7 @@
                         <button aria-label="Close" onclick="openscriptwindow()"></button>
                     </div>
                 </div>
-                <div class="window-body" style="height: fit-content; width: fit-content;">
+                <div class="window-body has-space" style="height: fit-content; width: fit-content;">
                     <textarea id="scripteditorbox" style="height: 250px; width: 250px;"
                         placeholder="Hello, Horanger!">debug("Hello, Horanger!")</textarea>
                 </div>
@@ -254,8 +257,8 @@
                         <button aria-label="Close" onclick="openscenelist()"></button>
                     </div>
                 </div>
-                <div class="window-body" style="height: 250px; overflow: hidden;">
-                    <ul id="scenelist" role="listbox" class="has-shadow has-hover" style="width: 250px; height: 275px;">
+                <div class="window-body has-space" style="height: 250px; overflow: hidden;">
+                    <ul id="scenelist" role="listbox" class="has-hover has-space" style="width: 250px; height: 275px;">
                     </ul>
                 </div>
             </div>
