@@ -22,12 +22,20 @@ function onDocumentMouseDown(event) {
     }
 }
 
-
 function viewobject(selectedObject) {
     // show the properties of the selected object (e.g. position, rotation, scale)
     console.log("Selected object: ", selectedObject);
-
     transformControls.attach(selectedObject);
+
+    function applyToTextArea(textarea) {
+        const keywords = ["break", "case", "catch", "class", "const", "continue", "debugger", "default", "delete", "do", "else", "export", "extends", "finally", "for", "function", "if", "import", "in", "instanceof", "let", "new", "return", "super", "switch", "this", "throw", "try", "typeof", "var", "void", "while", "with", "yield", "mesh"];
+        const functions = ["alert", "prompt", "debug", "Math.abs", "Math.floor", "Math.random", "Array.concat", "Array.filter", "Array.forEach", "Array.indexOf", "Array.join", "Array.map", "Array.push", "Array.pop", "Array.slice", "Date.getDate", "Date.getDay", "Date.getMonth", "Date.getFullYear", "Date.getHours", "Date.getMinutes", "Date.getSeconds", "String.charAt", "String.charCodeAt", "String.concat", "String.indexOf", "String.match", "String.replace", "String.search", "String.slice", "String.split", "String.substr", "String.substring", "String.toLowerCase", "String.toUpperCase"];
+        const suggestions = keywords.concat(functions);
+
+        $(textarea).autocomplete({
+            source: suggestions
+        });
+    }
 
     //create window
     let customwindow = document.createElement('div');
@@ -38,7 +46,7 @@ function viewobject(selectedObject) {
     let navTabs = document.createElement('menu');
 
     customwindow.className = "window active  above childwindow";
-    customwindow.onclick = function() {
+    customwindow.onclick = function () {
         focusWindow(this)
     }
     customwindow.style.width = 400;
@@ -180,6 +188,7 @@ function viewobject(selectedObject) {
         selectedObject.userData.initscriptfunction = initscriptfunction;
     }
 
+    //tabs
     const tabButtons = document.querySelectorAll("[role=tab]");
     tabButtons.forEach((tabButton) => {
         tabButton.addEventListener("click", (e) => {
@@ -198,4 +207,9 @@ function viewobject(selectedObject) {
                 .removeAttribute("hidden");
         });
     });
+
+    //apply autocomplete to textarea
+    applyToTextArea(textareascript)
+    applyToTextArea(clicktextareascript)
+    applyToTextArea(inittextareascript)
 }
