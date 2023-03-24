@@ -5,7 +5,7 @@ function loadsceneexplorer(selectedscene) {
     selectedscene.children.forEach(function (object) {
         var listItem = document.createElement("li");
         listItem.role = "option";
-        listItem.innerHTML = object.type;
+        listItem.innerHTML = object.name + ` (${object.type})`;
         listItem.onclick = function () {
             viewobject(object);
         }
@@ -25,6 +25,23 @@ function openscenelist() {
 function createCubePropertiesTableRow(cube) {
     //declare table
     const row = document.createElement('table');
+
+    //position
+    const namerow = document.createElement('tr');
+    const namelabelCell = document.createElement('td');
+    const namevalueCell = document.createElement('td');
+    const nameLabel = document.createElement('td');
+    nameLabel.innerText = 'Name: ';
+    const nameInput = document.createElement('input');
+    nameInput.value = cube.name;
+    nameInput.addEventListener('change', () => {
+        cube.name = (nameInput.value);
+    });
+    namelabelCell.appendChild(nameLabel);
+    namevalueCell.appendChild(nameInput);
+    namerow.appendChild(namelabelCell);
+    namerow.appendChild(namevalueCell);
+    row.appendChild(namerow);
 
     //position
     const posrow = document.createElement('tr');
