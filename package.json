@@ -10,7 +10,12 @@
     "dist": "electron-builder",
     "buildwin": "electron-builder --win"
   },
-  "author": "",
+  "repository": "https://github.com/HorangStudios/Editor",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
+  "author": "HorangStudios",
   "license": "AGPL-3.0",
   "devDependencies": {
     "electron": "^4.2.12",
