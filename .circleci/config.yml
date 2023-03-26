@@ -22,9 +22,6 @@ jobs:
           name: Generate Windows Builds
           command: npm run buildwin
       - run:
-          name: Generate Win32 Builds
-          command: npx electron-builder --win --ia32
-      - run:
           name: Delete foreign artifacts
           command: cd dist && rm -rf win-unpacked && rm -rf win-ia32-unpacked && rm -rf linux-unpacked && cd ..
 
