@@ -209,20 +209,21 @@ function generateterrain(voxsize, tersize, color) {
 function exportgltf() {
     var exporter = new THREE.GLTFExporter();
     exporter.parse(scene, function (result) {
+        scene.remove(transformControls);
         var output = JSON.stringify(result, null, 2);
 
         var link = document.createElement('a');
         link.href = URL.createObjectURL(new Blob([output], { type: 'text/plain' }));
         link.download = 'scene.gltf';
         link.click();
+        scene.add(transformControls);
     }, { trs: true });
 }
 
 // Function to export the scene to a HHLX file
 function exportScene() {
     // Convert scene to JSON format
-    transformControls.detach()
-    transformControls.dispose()
+    scene.remove(transformControls);
     const json = JSON.stringify(scene.toJSON(), null, 2);
 
     // Create a new blob with the JSON data and custom file extension
@@ -235,6 +236,7 @@ function exportScene() {
     link.href = url;
     link.download = fileName;
     link.click();
+    scene.add(transformControls);
 }
 
 // Function to import a GLTF file to the scene

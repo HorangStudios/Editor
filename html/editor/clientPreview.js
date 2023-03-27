@@ -1,4 +1,5 @@
 function createClientWindow() {
+    scene.remove(controls);
     const childWindow = new remote.BrowserWindow({
         show: false, // hide the window initially
         width: 640,
@@ -17,5 +18,6 @@ function createClientWindow() {
         // pass a reference to createScene to the child window
         childWindow.webContents.executeJavaScript(`loadMap(${JSON.stringify(scene)})`)
         childWindow.show()
+        scene.add(transformControls);
     })
 }
