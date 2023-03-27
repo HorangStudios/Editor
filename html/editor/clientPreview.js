@@ -1,5 +1,5 @@
 function createClientWindow() {
-    scene.remove(controls);
+    scene.remove(transformControls);
     const childWindow = new remote.BrowserWindow({
         show: false, // hide the window initially
         width: 640,
