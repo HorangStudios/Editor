@@ -1,6 +1,6 @@
 {
   "name": "horanghill",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "#Best #Editor #Ever",
   "homepage": "http://horanghill.great-site.net/",
   "main": "js/main.js",
@@ -27,8 +27,20 @@
     "win": {
       "verifyUpdateCodeSignature": false,
       "target": [
-        "nsis",
-        "portable"
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
       ],
       "publisherName": "HorangStudios"
     },
