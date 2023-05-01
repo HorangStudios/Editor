@@ -13,7 +13,7 @@
   "repository": "https://github.com/HorangStudios/Editor",
   "publish": {
     "provider": "github",
-    "releaseType": "draft"
+    "releaseType": "release"
   },
   "author": "HorangStudios",
   "license": "AGPL-3.0",
