@@ -53,6 +53,11 @@
       ],
       "maintainer": "HorangStudios",
       "category": "Game"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
     }
   },
   "dependencies": {
