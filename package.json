@@ -56,8 +56,10 @@
     },
     "mac": {
       "target": [
-        "dmg"
-      ]
+        "zip",
+        "tar.gz"
+      ],
+      "category": "public.app-category.games"
     }
   },
   "dependencies": {
