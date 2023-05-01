@@ -13,8 +13,16 @@
     <div class="window-body has-space" style="padding: 45px; text-align: center;">
         <img src="HorangHill.png" style="width: 125px;">
         <br><br><br>
-        <p>Starting Editor...</p>
+        <p id="updateStatus">Starting Editor...</p>
         <br>
         <div role="progressbar" class="marquee" style="width: 420px;"></div>
     </div>
 </div>
+
+<script>
+    const { ipcRenderer } = require('electron');
+
+    ipcRenderer.on('download-progress', (event, progressObj) => {
+        document.getElementById("updateStatus").innerText = progressObj.percent;
+    });
+</script>

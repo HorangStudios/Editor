@@ -25,6 +25,7 @@
     "appId": "com.horanghill.beta",
     "productName": "horanghill editor",
     "win": {
+      "verifyUpdateCodeSignature": false,
       "target": [
         "nsis",
         "portable"
@@ -43,6 +44,7 @@
     }
   },
   "dependencies": {
+    "electron-updater": "^5.3.0",
     "jquery": "^3.6.3"
   }
 }

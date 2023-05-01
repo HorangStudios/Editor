@@ -1,7 +1,9 @@
-const electron = require('electron')
-const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
-const fs = require('fs');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const { autoUpdater } = require("electron-updater");
+
+autoUpdater.autoDownload = true;
+autoUpdater.autoInstallOnAppQuit = true;
 
 function createWindow() {
 
@@ -14,36 +16,68 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true
     }
-  })
+  });
 
-  win.loadFile('./html/index.html')
-
-  var splash = new BrowserWindow({
+  const splash = new BrowserWindow({
     width: 528,
     height: 322,
     transparent: true,
-    frame: false
+    frame: false,
+    alwaysOnTop: true,
+    show: true
   });
 
   splash.loadFile('./html/splash.html');
-  splash.center();
 
-  setTimeout(function () {
-    splash.close();
-    win.show();
-  }, 10000);
+  win.loadFile('./html/index.html');
+
+  win.once('ready-to-show', () => {
+    if (!autoUpdater.downloadProgress) {
+      splash.hide();
+      win.show();
+    }
+  });
+
+  autoUpdater.checkForUpdates();
+  console.log(`Checking for updates. Current version ${app.getVersion()}`);
+
+  autoUpdater.on("update-available", (info) => {
+    console.log(`Update available. Current version ${app.getVersion()}`);
+    splash.webContents.send('update-message', 'An update is available. Downloading now...');
+  });
+
+  autoUpdater.on("update-not-available", (info) => {
+    console.log(`No update available. Current version ${app.getVersion()}`);
+  });
+
+  autoUpdater.on("download-progress", (progressObj) => {
+    splash.webContents.send('update-message', `Downloading update... ${progressObj.percent}%`);
+  });
+
+  autoUpdater.on("update-downloaded", (info) => {
+    console.log(`Update downloaded. Current version ${app.getVersion()}`);
+    splash.webContents.send('update-message', 'Update downloaded. Installing now...');
+    autoUpdater.quitAndInstall();
+  });
+
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-})
+});
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
+    createWindow();
   }
-})
+});
+
+ipcMain.on('get-app-version', (event) => {
+  event.returnValue = app.getVersion();
+});
