@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "dist": "electron-builder",
+    "dist": "electron-builder --linux --mac",
     "buildwin": "electron-builder --win"
   },
   "repository": "https://github.com/HorangStudios/Editor",
