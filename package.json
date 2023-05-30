@@ -11,10 +11,16 @@
     "buildwin": "electron-builder --win"
   },
   "repository": "https://github.com/HorangStudios/Editor",
-  "publish": {
-    "provider": "github",
-    "releaseType": "release"
-  },
+  "publish": [
+    {
+      "provider": "github",
+      "releaseType": "release"
+    },
+    {
+      "provider": "generic",
+      "url": "https://itch.io/api/1/upload?api_key=${ITCH_API_KEY}"
+    }
+  ],
   "author": "HorangStudios",
   "license": "AGPL-3.0",
   "devDependencies": {
