@@ -21,3 +21,4 @@ const restorewin = () => {
     document.getElementById('restore').style.display = "none";
     win.unmaximize()
 }
+const zeanmenkominfo = true
